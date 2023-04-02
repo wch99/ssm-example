@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--给包下的类起别名-->
+    <typeAliases>
+        <package name="com.njit.domain"/>
+    </typeAliases>
+
+    <!--自定义类型处理器-->
+    <typeHandlers>
+        <typeHandler handler="com.njit.TypeHandler.DateTypeHandler"></typeHandler>
+    </typeHandlers>
+    
+    <!--配置分页助手插件-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageHelper">
+            <!--方言 mysql分页用的是limit-->
+            <property name="dialect" value="mysql"/>
+        </plugin>
+    </plugins>
+
+</configuration>

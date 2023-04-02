@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.js"></script>
+</head>
+<body>
+<div id="accountTable">
+    <form action="saveOneAccount.html">
+    <table border="1" >
+        <tr>
+            <th>id</th>
+            <th>姓名</th>
+            <th>余额</th>
+            <th>操作</th>
+        </tr>
+        <tr v-for="(account,i) in accounts">
+            <td>{{i+1}}</td>
+            <td>{{account.name}}</td>
+            <td>{{account.money}}</td>
+            <td><a href="#">修改</a> <a href="/account/deleteOneAccount">删除</a></td>
+        </tr>
+    </table>
+        <input type="submit" value="添加">
+    </form>
+</div>
+
+<script>
+    new Vue ({
+        el:"#accountTable",
+        data (){
+            return{
+                accounts:[]
+            }
+        },
+        mounted(){
+            //挂载完成，执行请求
+            //记载一下Vue范围的指针
+            var _this=this;
+            axios({
+                method:"GET",
+                url:"http://localhost:8080/account/selectAllAccount"
+            }).then(function (resp) {
+                _this.accounts=resp.data;
+            })
+        }
+    });
+</script>
+</body>
+</html>

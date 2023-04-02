@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <!--包扫描器，扫描包里面的bean对象放到容器中-->
+    <context:component-scan base-package="com.itheima"/>
+
+    <bean id="target" class="com.itheima.aop.Target"></bean>
+
+    <!--配置织入：告诉Spring容器哪些方法(切点)要进行哪些增强(前置，后置。。)-->
+    <!--要先导入aop命名空间-->
+    <aop:config>
+        <!--声明切面-->
+        <aop:aspect ref="myAspect">
+            <!--切面：切点+通知-->
+            <aop:before method="before" pointcut="execution(public void com.itheima.aop.Target.save())"></aop:before>
+        </aop:aspect>
+    </aop:config>
+</beans>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.js"></script>
+</head>
+<body>
+<div id="saveOneAccount">
+<table border="0">
+    <tr>
+        <td><label>姓名</label></td>
+        <td><input type="text" v-model="account.name"></td>
+    </tr>
+    <tr>
+        <td><label>钱</label></td>
+        <td><input type="text" v-model="account.money"></td>
+    </tr>
+    <tr>
+        <td colspan="2"><input type="button" value="保存" v-on:click="saveOneAccount"></td>
+    </tr>
+</table>
+</div>
+
+<script>
+    new Vue ({
+       el:"#saveOneAccount",
+       data(){
+           return{
+               account:{}
+           }
+       } ,
+        methods:{
+           saveOneAccount(){
+               var _this=this;
+               axios({
+                   method:"post",
+                   url:"http://localhost:8080/account/saveOneAccount",
+                   data:_this.account
+               }).then(function (resp) {
+                    if(resp.data=='success'){
+                        location.href="http://localhost:8080/display.html";
+                    }
+               })
+           }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="user1" class="com.itheima.pojo.User">
+        <property name="name" value="wch"></property>
+        <property name="addr" value="南通"></property>
+    </bean>
+    <bean id="user2" class="com.itheima.pojo.User">
+        <property name="name" value="wccc"></property>
+        <property name="addr" value="广州"></property>
+    </bean>
+    <bean id="userDao" class="com.itheima.dao.impl.UserDaoImpl">
+        <property name="stringList">
+            <list>
+                <value>aaaa</value>
+                <value>bbbbb</value>
+                <value>888888</value>
+            </list>
+        </property>
+        <property name="userMap">
+            <map>
+                <!--ref表示引用，被引用对象要在容器当中-->
+                <entry key="wch" value-ref="user1"></entry>
+                <entry key="wccc" value-ref="user2"></entry>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="k1">value1111</prop>
+                <prop key="k2">value222</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="userService" class="com.itheima.service.impl.UserServiceImpl">
+        <!--name指的是属性名字，是要注入的对象的set方法中的set后面的名字，首字母小写
+            例如：setUserDao中的'userDao'为name
+            ref指的是要注入的对象的beanId
+            例如要注入UserDaoImpl对象，他在配置文件中的id为userDao
+        -->
+        <property name="userDao" ref="userDao"></property>
+    </bean>
+<!--    <bean id="userService" class="com.itheima.service.impl.UserServiceImpl">-->
+<!--        &lt;!&ndash;name是构造内部的参数名&ndash;&gt;-->
+<!--       <constructor-arg name="userDao" ref="userDao"></constructor-arg>-->
+<!--    </bean>-->
+</beans>
